@@ -1,0 +1,505 @@
+In machine learning, a neural network (NN) or neural net, also known as an artificial neural network (ANN), is a computational model inspired by the structure and functions of biological neural networks.[1][2]
+
+A neural network consists of connected units or nodes called artificial neurons, which loosely model the neurons in the brain. Artificial neuron models that mimic biological neurons more closely have also been recently investigated and shown to significantly improve performance. These are connected by edges, which model the synapses in the brain. Each artificial neuron receives signals from connected neurons, then processes them and sends a signal to other connected neurons. The "signal" is a real number, and the output of each neuron is computed by some non-linear function of the totality of its inputs, called the activation function. The strength of the signal at each connection is determined by a weight, which adjusts during the learning process.
+
+Typically, neurons are aggregated into layers. Different layers may perform different transformations on their inputs. Signals travel from the first layer (the input layer) to the last layer (the output layer), possibly passing through multiple intermediate layers (hidden layers). A network is typically called a deep neural network if it has at least two hidden layers.[3]
+
+Advances in computing power, particularly the use of graphics processing units (GPUs), and the availability of large datasets further accelerated neural network research in the early 21st century. These developments enabled the training of deep neural networks capable of learning hierarchical representations from complex data.[citation needed]
+
+Architectural innovations such as convolutional neural networks (CNNs) significantly improved performance in computer vision tasks, while recurrent neural networks (RNNs) enabled modeling of sequential data such as speech and time-series information. More recently, transformer architectures introduced attention mechanisms that allow neural networks to model long-range dependencies in data and have become foundational for modern large language models.[4]
+
+Today, artificial neural networks are used for various tasks, including predictive modeling, adaptive control, and solving problems in artificial intelligence.
+
+
+Simplified example of training a neural network in object detection: The network is trained by multiple images that are known to depict starfish and sea urchins, which are correlated with "nodes" that represent visual features. The starfish match with a ringed texture and a star outline, whereas most sea urchins match with a striped texture and oval shape. However, the instance of a ring textured sea urchin creates a weakly weighted association between them.
+
+Subsequent run of the network on an input image (left):[5] The network correctly detects the starfish. However, the weakly weighted association between ringed texture and sea urchin also confers a weak signal to the latter from one of two intermediate nodes. In addition, a shell that was not included in the training gives a weak signal for the oval shape, also resulting in a weak signal for the sea urchin output. These weak signals may result in a false positive result for sea urchin.
+In reality, textures and outlines would not be represented by single nodes, but rather by associated weight patterns of multiple nodes.
+History
+Main article: History of artificial neural networks
+icon
+This section relies largely or entirely on a single source. Relevant discussion may be found on the talk page. Please help improve this article by introducing citations to additional sources.
+Find sources: "Neural network" machine learning – news · newspapers · books · scholar · JSTOR (March 2026)
+Mathematical foundations
+Today's deep neural networks are based on early work in statistics over 200 years ago. The simplest kind of feedforward neural network (FNN) is a linear network, which consists of a single layer of output nodes with linear activation functions; the inputs are fed directly to the outputs via a series of weights. The sum of the products of the weights and the inputs is calculated at each node. The mean squared errors between these calculated outputs and the given target values are minimized by creating an adjustment to the weights. This technique has been known for over two centuries as the method of least squares or linear regression. It was used as a means of finding a good rough linear fit to a set of points by Legendre (1805) and Gauss (1795) for the prediction of planetary movement.[6][7][8][9][10]
+
+Perceptrons
+Historically, digital computers such as the von Neumann model operate via the execution of explicit instructions with access to memory by a number of processors. Some neural networks, on the other hand, originated from efforts to model information processing in biological systems through the framework of connectionism. Unlike the von Neumann model, connectionist computing does not separate memory and processing.[citation needed]
+
+Warren McCulloch and Walter Pitts[11] (1943) considered a non-learning computational model for neural networks.[12] This model paved the way for research to split into two approaches; one approach focused on biological processes while the other focused on the application of neural networks to artificial intelligence. McCulloch and Pitts also developed mathematical models of artificial neurons capable of representing logical functions.[11]
+
+In the late 1940s, D. O. Hebb[13] proposed a learning hypothesis based on the mechanism of neural plasticity that became known as Hebbian learning. It was used in many early neural networks, such as Rosenblatt's perceptron and the Hopfield network. Farley and Clark[14] (1954) used computational machines to simulate a Hebbian network. Other neural network computational machines were created by Rochester, Holland, Habit and Duda (1956).[15]
+
+In 1958, psychologist Frank Rosenblatt described the perceptron, one of the first implemented artificial neural networks,[16][17][18][19] funded by the United States Office of Naval Research.[20] R. D. Joseph (1960)[21][verification needed] mentions an even earlier perceptron-like device by B. G. Farley and W. A. Clark of the MIT Lincoln Laboratory;[9] however, according to Joseph, "they dropped the subject."[21][verification needed]
+
+The first perceptrons did not have adaptive hidden units. However, Joseph (1960)[21] also discussed multilayer perceptrons with an adaptive hidden layer. Rosenblatt (1962)[22]: section 16  cited and adopted these ideas, also crediting work by H. D. Block and B. W. Knight. Unfortunately, these early efforts did not lead to a working learning algorithm for hidden units, i.e., deep learning.[citation needed]
+
+The perceptron raised public excitement for research in artificial neural networks, causing the US government to drastically increase funding. This contributed to "the Golden Age of AI", fueled by the optimistic claims made by computer scientists regarding the ability of perceptrons to emulate human intelligence.[23]
+
+Historical foundations and the Dartmouth proposal
+Artificial neural networks were identified as a promising direction for artificial intelligence research in the 1955 proposal for the Dartmouth Summer Research Project on Artificial Intelligence.[24] In the proposal, researchers suggested that simplified computational models of biological neurons, described as "neuron nets," might enable machines to learn, form concepts, and improve performance through experience.[24][failed verification]
+
+Despite this early promise, neural network models faced major limitations during the early decades of artificial intelligence research. Hardware constraints limited network size and training efficiency, while theoretical understanding of learning algorithms remained incomplete. Many early models relied on single-layer perceptrons, which were restricted to solving linearly separable problems. These limitations were highlighted in the book Perceptrons by Marvin Minsky and Seymour Papert, which contributed to reduced interest in neural network research during the late 1960s and 1970s.[25]
+
+Deep learning breakthroughs in the 1960s and 1970s
+Fundamental research was conducted on ANNs in the 1960s and 1970s. The first working deep learning algorithm was the Group method of data handling, a method to train arbitrarily deep neural networks, published by Alexey Ivakhnenko and Valentin Lapa in the Soviet Union (1965). They regarded it as a form of polynomial regression,[26] or a generalization of Rosenblatt's perceptron.[27] A 1971 paper described a deep network with eight layers trained by this method,[28] which is based on layer by layer training through regression analysis. Superfluous hidden units are pruned using a separate validation set. Since the activation functions of the nodes are Kolmogorov-Gabor polynomials, these were also the first deep networks with multiplicative units or "gates."[9]
+
+The first deep learning multilayer perceptron (MLP) trained by stochastic gradient descent[29] was published in 1967 by Shun'ichi Amari.[30] In computer experiments conducted by Amari's student S. Saito, a five layer MLP with two modifiable layers learned internal representations to classify non-linearily separable pattern classes.[9] Subsequent developments in hardware and hyperparameter tuning have made end-to-end stochastic gradient descent the currently dominant training technique.[citation needed]
+
+In 1969, Kunihiko Fukushima introduced the ReLU (rectified linear unit) activation function.[9][31][32] The rectifier has become the most popular activation function for deep learning.[33]
+
+Nevertheless, research stagnated in the United States following the work of Minsky and Papert (1969),[34] who emphasized that basic perceptrons were incapable of processing the exclusive-or circuit. This insight was irrelevant for the deep networks of Ivakhnenko (1965) and Amari (1967).
+
+In 1976, transfer learning was introduced.[35]
+
+Backpropagation
+Interest in neural networks revived during the 1980s with the development of the backpropagation algorithm, which allowed multi-layer neural networks to be trained efficiently by propagating error gradients backward through network layers.[36] Backpropagation is an efficient application of the chain rule derived by Gottfried Wilhelm Leibniz in 1673[37] to networks of differentiable nodes. The terminology "back-propagating errors" was actually introduced in 1962 by Rosenblatt,[22] but he did not know how to implement this, although Henry J. Kelley had a continuous precursor of backpropagation in 1960 in the context of control theory.[38] In 1970, Seppo Linnainmaa published the modern form of backpropagation in his master's thesis (1970).[39][40][9] G.M. Ostrovski et al. republished it in 1971.[41][42] Paul Werbos applied backpropagation to neural networks in 1982[43][44] (his 1974 PhD thesis, reprinted in a 1994 book,[45] did not yet describe the algorithm[42]). In 1986, David E. Rumelhart et al. popularised backpropagation but did not cite the original work.[46]
+
+Convolutional neural networks
+Deep learning architectures for convolutional neural networks (CNNs) with convolutional layers and downsampling layers and weight replication began with the neocognitron introduced by Kunihiko Fukushima in 1979, though not trained by backpropagation.[47][48][49] Fukushima's CNN architecture also introduced max pooling,[50] a popular downsampling procedure for CNNs. CNNs have become an essential tool for computer vision.
+
+The time delay neural network (TDNN) was introduced in 1987 by Alex Waibel to apply CNNs to phoneme recognition. It used convolutions, weight sharing, and backpropagation.[51][52] In 1988, Wei Zhang applied a backpropagation-trained CNN to alphabet recognition.[53] In 1989, Yann LeCun et al. created a CNN called LeNet for recognizing handwritten ZIP codes on mail. Training required 3 days.[54] In 1990, Wei Zhang implemented a CNN on optical computing hardware.[55] In 1991, a CNN was applied to medical image object segmentation[56] and breast cancer detection in mammograms.[57] LeNet-5 (1998), a 7-level CNN by Yann LeCun et al. that classifies digits, was applied by several banks to recognize hand-written numbers on checks digitized in 32×32 pixel images.[58]
+
+From 1988 onward,[59][60] the use of neural networks transformed the field of protein structure prediction, in particular when the first cascading networks were trained on profiles (matrices) produced by multiple sequence alignments.[61]
+
+Recurrent neural networks
+One origin of RNN was statistical mechanics. In 1972, Shun'ichi Amari proposed to modify the weights of an Ising model by Hebbian learning rule as a model of associative memory, adding in the component of learning.[62] This was popularized as the Hopfield network by John Hopfield (1982).[63] Another origin of RNN was neuroscience. The word "recurrent" is used to describe loop-like structures in anatomy. In 1901, Cajal observed "recurrent semicircles" in the cerebellar cortex.[64] Hebb considered "reverberating circuit" as an explanation for short-term memory.[65] The McCulloch and Pitts paper (1943) considered neural networks that contain cycles, and noted that the current activity of such networks can be affected by activity indefinitely far in the past.[11]
+
+In 1982 a recurrent neural network with an array architecture (rather than a multilayer perceptron architecture), namely a Crossbar Adaptive Array,[66][67] used direct recurrent connections from the output to the supervisor (teaching) inputs. In addition of computing actions (decisions), it computed internal state evaluations (emotions) of the consequence situations. Eliminating the external supervisor, it introduced the self-learning method in neural networks.
+
+In cognitive psychology, the journal American Psychologist in early 1980s carried out a debate on the relation between cognition and emotion. Social psychologist Robert Zajonc in 1980 stated that emotion is computed first and is independent from cognition, while Richard Lazarus in 1982 stated that cognition is computed first and is inseparable from emotion.[68][69] In 1982 the Crossbar Adaptive Array gave a neural network model of cognition-emotion relation.[66][70][verification needed] It was an example of a debate where an AI system, a recurrent neural network, contributed to an issue in the same time addressed by cognitive psychology.[importance?]
+
+Two early influential works were the Jordan network (1986) and the Elman network (1990), which applied RNN to study cognitive psychology.[citation needed]
+
+In the 1980s, backpropagation did not work well for deep RNNs. To overcome this problem, in 1991, Jürgen Schmidhuber proposed the "neural sequence chunker" or "neural history compressor"[71][72] which introduced the important concepts of self-supervised pre-training (the "P" in ChatGPT) and neural knowledge distillation.[9] In 1993, a neural history compressor system solved a "Very Deep Learning" task that required more than 1000 subsequent layers in an RNN unfolded in time.[73]
+
+In 1991, Sepp Hochreiter's diploma thesis identified and analyzed the vanishing gradient problem[74][75] and proposed recurrent residual connections to solve it. He and Schmidhuber introduced long short-term memory (LSTM), which set accuracy records in multiple applications domains.[76][77] This was not yet the modern version of LSTM, which required the forget gate, which was introduced in 1999.[78] It became the default choice for RNN architecture.[citation needed]
+
+During 1985–1995, inspired by statistical mechanics, several architectures and methods were developed by Terry Sejnowski, Peter Dayan, Geoffrey Hinton, and others, including the Boltzmann machine,[79] restricted Boltzmann machine,[80] Helmholtz machine,[81] and the wake-sleep algorithm.[82] These were designed for unsupervised learning of deep generative models.[citation needed]
+
+Modern deep learning
+Between 2009 and 2012, ANNs began winning prizes in image recognition contests, approaching human level performance on various tasks, initially in pattern recognition and handwriting recognition.[83][84] In 2011, a CNN named DanNet[85][86] by Dan Ciresan, Ueli Meier, Jonathan Masci, Luca Maria Gambardella, and Jürgen Schmidhuber achieved for the first time superhuman performance in a visual pattern recognition contest, outperforming traditional methods by a factor of 3.[49] It then won more contests.[87][88] They also showed how max-pooling CNNs on GPU improved performance significantly.[89]
+
+In October 2012, AlexNet by Alex Krizhevsky, Ilya Sutskever, and Geoffrey Hinton[90] won the large-scale ImageNet competition by a significant margin over shallow machine learning methods. Further incremental improvements included the VGG-16 network by Karen Simonyan and Andrew Zisserman[91] and Google's Inceptionv3.[92]
+
+In 2012, Ng and Dean created a network that learned to recognize higher-level concepts, such as cats, only from watching unlabeled images.[93] Unsupervised pre-training and increased computing power from GPUs and distributed computing allowed the use of larger networks, particularly in image and visual recognition problems, which became known as "deep learning".[94]
+
+Radial basis function and wavelet networks were introduced in 2013. These can be shown to offer best approximation properties and have been applied in nonlinear system identification and classification applications.[95]
+
+Generative adversarial networks (GANs) (Ian Goodfellow et al., 2014)[96] became state of the art in generative modeling in 2014–2018. The GAN principle was originally published in 1991 by Jürgen Schmidhuber, who called it "artificial curiosity": two neural networks contest with each other in the form of a zero-sum game, where one network's gain is the other network's loss.[97][98] The first network is a generative model that models a probability distribution over output patterns. The second network learns by gradient descent to predict the reactions of the environment to these patterns. Excellent image quality is achieved by Nvidia's StyleGAN (2018)[99] based on the Progressive GAN by Tero Karras et al.[100] Here, the GAN generator is grown from small to large scale in a pyramidal fashion. Image generation by GAN reached popular success, and provoked discussions concerning deepfakes.[101] Diffusion models (2015)[102] eclipsed GANs in generative modeling since then, with systems such as DALL·E 2 (2022) and Stable Diffusion (2022).
+
+In 2014, the state of the art was training "[a] very deep neural network" with 20 to 30 layers.[103] Stacking too many layers led to a steep reduction in training accuracy,[104] known as the "degradation" problem.[105] In 2015, two techniques were developed to train very deep networks: the highway network was published in May 2015,[106] and the residual neural network (ResNet) in December 2015.[107][108] ResNet behaves like an open-gated Highway Net.[clarification needed]
+
+Transformers
+Main article: Transformer (deep learning architecture) § History
+During the 2010s, the seq2seq model was developed, and attention mechanisms were added. It led to the modern transformer architecture in 2017 in Attention Is All You Need.[4] It requires computation time that is quadratic in the size of the context window. Jürgen Schmidhuber's fast weight controller (1992)[109] scales linearly and was later shown to be equivalent to the unnormalized linear transformer.[110][111][9] Transformers have increasingly become the model of choice for natural language processing.[112] Many modern large language models such as ChatGPT, GPT-4, and BERT use this architecture.
+
+Models
+
+This section may be confusing or unclear to readers. Please help clarify the section. There might be a discussion about this on the talk page. (April 2017) (Learn how and when to remove this message)
+Further information: Mathematics of artificial neural networks
+
+Neuron and myelinated axon, with signal flow from inputs at dendrites to outputs at axon terminals
+ANNs began as an attempt to exploit the architecture of the human brain to perform tasks that conventional algorithms had little success with. They soon reoriented towards improving empirical results, abandoning attempts to remain true to their biological precursors. ANNs have the ability to learn and model complex, non-linear relationships. This is achieved by neurons being connected in various patterns, allowing the output of some neurons to become the input of others. The network forms a directed, weighted graph.[113]
+
+An artificial neural network consists of simulated neurons. Each neuron is connected to other nodes via links like a biological axon-synapse-dendrite connection. All the nodes connected by links take in some data and use it to perform specific operations and tasks on the data. Each link has a weight, determining the strength of one node's influence on another.[114]
+
+Artificial neurons
+Artificial neuron structure
+Structure of an artificial neuron
+ANNs are composed of artificial neurons, conceptually derived from biological neurons. Each artificial neuron has one or more numerical inputs and produces a single numerical output.[115] To find the output of a neuron, we take the (weighted) sum of all the neuron's inputs, weighted by the weights of the connections from each of those inputs. We then add a bias term to this sum.[116] This weighted sum (plus the bias) is then passed through a nonlinear activation function to produce the neuron's output.[117][118][119]
+
+To create a neural network, multiple artificial neurons are connected together, with the outputs of some neurons being fed into the input of others. The inputs to the initial input neurons are external data, such as images and text (encoded as a series of numbers). The outputs of the final output neurons correspond to the task the network was created to do, such as recognizing an object in an image.[117]
+
+Organization
+
+Structure of a feedforward neural network with three layers
+The neurons are typically organized into multiple layers, especially in deep learning. The layer that receives external data is the input layer, and the layer that produces the ultimate result is the output layer. In between them are zero or more hidden layers. Single layer and unlayered networks are also used.[citation needed]
+
+Between two layers, multiple connection patterns are possible. Traditionally, they are fully connected, with every neuron in one layer connecting to every neuron in the next layer.[120] However, in convolutional neural networks, some layers are convolutional, meaning each neuron in the next layer is connected to a set of spatially grouped neurons in the previous layer.[121][122][clarification needed]
+
+In most neural networks,[citation needed] the outputs of the neurons in one layer are only connected to the inputs of neurons in the immediately following layer (forming a directed acyclic graph), meaning information can only flow "forward" from one layer to the next. These are known as feedforward networks.[123] In contrast, networks that allow connections between neurons in the same or previous layers are known as recurrent networks.[124]
+
+Learning
+
+This section includes a list of references, related reading, or external links, but its sources remain unclear because it lacks inline citations. Please help improve this section by introducing more precise citations. (August 2019) (Learn how and when to remove this message)
+See also: Mathematical optimization, Estimation theory, and Machine learning
+The function of a neural network is defined by its architecture – how the different neurons are organized and connected to one another – and the values, or weights, associated with each of the neurons, determining how it calculates its output based on its input connections.[125][note 1] The goal of learning involves adjusting the weights (and optional thresholds) of the network to improve the accuracy of the result. This is done by minimizing the observed errors among sample observations.
+
+Neural networks are typically trained through empirical risk minimization, which is based on the idea of optimizing the network's parameters to minimize the difference, or empirical risk, between the predicted output and the actual target values in a given dataset.[126] Gradient-based methods such as backpropagation are usually used to estimate the parameters of the network.[126] During the training phase, ANNs learn from labeled training data by iteratively updating their parameters to minimize a defined loss function.[94] This method allows the network to generalize to unseen data.
+
+Practically this is done by defining a loss function[note 2] that is evaluated periodically during learning. As long as its output continues to decline, learning continues. The cost is frequently defined as a statistic whose value can only be approximated. The outputs are actually numbers, so when the error is low, the difference between the output (almost certainly a cat) and the correct answer (cat) is small. Learning attempts to reduce the total of the differences across the observations. Most learning models can be viewed as a straightforward application of optimization theory and statistical estimation.[113][127]
+
+Learning is typically considered complete when examining additional observations does not usefully reduce the error rate. Even after learning, the error rate typically does not reach 0. If after learning, the error rate is too high, the network typically must be redesigned.
+
+Loss function
+[icon]	
+This section needs expansion with: Talk more about how loss functions are described, what types exist for different problems. You can help by adding missing information. (March 2026)
+While it is possible to define a loss function ad hoc, frequently the choice is determined by the function's desirable properties (such as convexity) because it arises from the model (e.g. in a probabilistic model, the model's posterior probability can be used as an inverse cost).[citation needed]
+
+Backpropagation
+Main article: Backpropagation
+Backpropagation is a method used to adjust the connection weights to compensate for each error found during learning. The error amount is effectively divided among the connections. Technically, backpropagation calculates the gradient (the derivative) of the loss function associated with a given state with respect to the weights. The weight updates can be done via stochastic gradient descent or other methods, such as extreme learning machines,[128] "no-prop" networks,[129] training without backtracking,[130] "weightless" networks,[131][132] and non-connectionist neural networks.[citation needed]
+
+Hyperparameters
+Main article: Hyperparameter (machine learning)
+A hyperparameter is a parameter defining any configurable part of the learning process, whose value is set prior to training.[133] Examples of hyperparameters include learning rate, batch size and regularization parameters.[134]. The performance of a neural network is strongly influenced by the choice of hyperparameter values, and thus the hyperparameters are often optimized as part of the training process, a process called hyperparameter tuning or hyperparameter optimization.[135]
+
+Learning rate
+Main article: Learning rate
+The learning rate defines the size of the corrective steps that the model takes to adjust for errors in each observation.[136] A high learning rate shortens the training time, but with lower ultimate accuracy, while a lower learning rate takes longer, but with the potential for greater accuracy. Optimizations such as Quickprop are primarily aimed at speeding up error minimization, while other improvements mainly try to increase reliability. In order to avoid oscillation inside the network such as alternating connection weights, and to improve the rate of convergence, refinements use an adaptive learning rate that increases or decreases as appropriate.[137] The concept of momentum allows the balance between the gradient and the previous change to be weighted such that the weight adjustment depends to some degree on the previous change. A momentum close to 0 emphasizes the gradient, while a value close to 1 emphasizes the last change.[citation needed]
+
+Learning paradigms
+
+This section includes a list of references, related reading, or external links, but its sources remain unclear because it lacks inline citations. Please help improve this section by introducing more precise citations. (August 2019) (Learn how and when to remove this message)
+Machine learning is commonly separated into three main learning paradigms, supervised learning,[138] unsupervised learning[139] and reinforcement learning.[140] Each corresponds to a particular learning task.
+
+Supervised learning
+Supervised learning uses a set of paired inputs and desired outputs. The learning task is to produce the desired output for each input. In this case, the cost function is related to eliminating incorrect deductions.[141] A commonly used cost is the mean-squared error, which tries to minimize the average squared error between the network's output and the desired output. Tasks suited for supervised learning are pattern recognition (also known as classification) and regression (also known as function approximation). Supervised learning is also applicable to sequential data (e.g., for handwriting, speech and gesture recognition). This can be thought of as learning with a "teacher", in the form of a function that provides continuous feedback on the quality of solutions obtained thus far.
+
+Unsupervised learning
+In unsupervised learning, input data is given along with the cost function, some function of the data 
+x
+{\displaystyle \textstyle x} and the network's output. The cost function is dependent on the task (the model domain) and any a priori assumptions (the implicit properties of the model, its parameters and the observed variables). As a trivial example, consider the model 
+f
+(
+x
+)
+=
+a
+{\displaystyle \textstyle f(x)=a} where 
+a
+{\displaystyle \textstyle a} is a constant and the cost
+C
+=
+E
+[
+(
+x
+−
+f
+(
+x
+)
+)
+2
+]
+{\displaystyle \textstyle C=E[(x-f(x))^{2}]}. Minimizing this cost produces a value of 
+a
+{\displaystyle \textstyle a} that is equal to the mean of the data. The cost function can be much more complicated. Its form depends on the application: for example, in compression it could be related to the mutual information between 
+x
+{\displaystyle \textstyle x} and 
+f
+(
+x
+)
+{\displaystyle \textstyle f(x)}, whereas in statistical modeling, it could be related to the posterior probability of the model given the data (note that in both of those examples, those quantities would be maximized rather than minimized). Tasks that fall within the paradigm of unsupervised learning are in general estimation problems; the applications include clustering, the estimation of statistical distributions, compression and filtering.
+
+Reinforcement learning
+Main article: Reinforcement learning
+See also: Stochastic control
+In applications such as playing video games, an actor takes a string of actions, receiving a generally unpredictable response from the environment after each one. The goal is to win the game, i.e., generate the most positive (lowest cost) responses. In reinforcement learning, the aim is to weight the network (devise a policy) to perform actions that minimize long-term (expected cumulative) cost. At each point in time the agent performs an action and the environment generates an observation and an instantaneous cost, according to some (usually unknown) rules. The rules and the long-term cost usually only can be estimated. At any juncture, the agent decides whether to explore new actions to uncover their costs or to exploit prior learning to proceed more quickly.
+
+Formally, the environment is modeled as a Markov decision process (MDP) with states 
+s
+1
+,
+.
+.
+.
+,
+s
+n
+∈
+S
+{\displaystyle \textstyle {s_{1},...,s_{n}}\in S} and actions
+a
+1
+,
+.
+.
+.
+,
+a
+m
+∈
+A
+{\displaystyle \textstyle {a_{1},...,a_{m}}\in A}. Because the state transitions are not known, probability distributions are used instead: the instantaneous cost distribution 
+P
+(
+c
+t
+|
+s
+t
+)
+{\displaystyle \textstyle P(c_{t}|s_{t})}, the observation distribution 
+P
+(
+x
+t
+|
+s
+t
+)
+{\displaystyle \textstyle P(x_{t}|s_{t})} and the transition distribution 
+P
+(
+s
+t
++
+1
+|
+s
+t
+,
+a
+t
+)
+{\displaystyle \textstyle P(s_{t+1}|s_{t},a_{t})}, while a policy is defined as the conditional distribution over actions given the observations. Taken together, the two define a Markov chain (MC). The aim is to discover the lowest-cost MC.
+
+ANNs serve as the learning component in such applications.[142][143] Dynamic programming coupled with ANNs (giving neurodynamic programming)[144] has been applied to problems such as those involved in vehicle routing,[145] video games, natural resource management[146][147] and medicine[148] because of ANNs ability to mitigate losses of accuracy even when reducing the discretization grid density for numerically approximating the solution of control problems. Tasks that fall within the paradigm of reinforcement learning are control problems, games and other sequential decision making tasks.
+
+Self-learning
+Self-learning in neural networks was introduced in 1982 along with a neural network capable of self-learning named crossbar adaptive array (CAA).[149] It is a system with only one input, situation s, and only one output, action (or behavior) a. It has neither external advice input nor external reinforcement input from the environment. The CAA computes, in a crossbar fashion, both decisions about actions and emotions (feelings) about encountered situations. The system is driven by the interaction between cognition and emotion.[150] Given the memory matrix, W =||w(a,s)||, the crossbar self-learning algorithm in each iteration performs the following computation:
+
+ In situation s perform action a;
+ Receive consequence situation s';
+ Compute emotion of being in consequence situation v(s');
+ Update crossbar memory w'(a,s) = w(a,s) + v(s').
+The backpropagated value (secondary reinforcement) is the emotion toward the consequence situation. The CAA exists in two environments, one is behavioral environment where it behaves, and the other is genetic environment, where from it receives initial emotions (only once) about to be encountered situations in the behavioral environment. Having received the genome vector (species vector) from the genetic environment, the CAA will learn a goal-seeking behavior, in the behavioral environment that contains both desirable and undesirable situations.[151]
+
+Neuroevolution
+Main article: Neuroevolution
+Neuroevolution can create neural network topologies and weights using evolutionary computation. It is competitive with sophisticated gradient descent approaches.[152][153] One advantage of neuroevolution is that it may be less prone to get caught in "dead ends".[154]
+
+Stochastic neural network
+Stochastic neural networks originating from Sherrington–Kirkpatrick models are a type of artificial neural network built by introducing random variations into the network, either by giving the network's artificial neurons stochastic transfer functions[155], or by giving them stochastic weights. This makes them useful tools for optimization problems, since the random fluctuations help the network escape from local minima.[156] Stochastic neural networks trained using a Bayesian approach are known as Bayesian neural networks.[157]
+
+Topological deep learning
+Topological deep learning, first introduced in 2017,[158] is an emerging approach in machine learning that integrates topology with deep neural networks to address highly intricate and high-order data. Initially rooted in algebraic topology, TDL has since evolved into a versatile framework incorporating tools from other mathematical disciplines, such as differential topology and geometric topology. As a successful example of mathematical deep learning, TDL continues to inspire advancements in mathematical artificial intelligence, fostering a mutually beneficial relationship between AI and mathematics.
+
+Other
+In a Bayesian framework, a distribution over the set of allowed models is chosen to minimize the cost. Evolutionary methods,[159] gene expression programming,[160] simulated annealing,[161] expectation–maximization, non-parametric methods and particle swarm optimization[162] are other learning algorithms. Convergent recursion is a learning algorithm for cerebellar model articulation controller (CMAC) neural networks.[163][164]
+
+Modes
+
+This section includes a list of references, related reading, or external links, but its sources remain unclear because it lacks inline citations. Please help improve this section by introducing more precise citations. (August 2019) (Learn how and when to remove this message)
+Two modes of learning are available: stochastic and batch. In stochastic learning, each input creates a weight adjustment. In batch learning, weights are adjusted based on a batch of inputs, accumulating errors over the batch. Stochastic learning introduces "noise" into the process, using the local gradient calculated from one data point; this reduces the chance of the network getting stuck in local minima. However, batch learning typically yields a faster, more stable descent to a local minimum, since each update is performed in the direction of the batch's average error. A common compromise is to use "mini-batches", small batches with samples in each batch selected stochastically from the entire data set.
+
+Types
+Main article: Types of artificial neural networks
+ANNs have evolved into a broad family of techniques that have advanced the state of the art across multiple domains. The simplest types have one or more static components, including number of units, number of layers, unit weights and topology. Dynamic types allow one or more of these to evolve via learning. The latter is much more complicated but can shorten learning periods and produce better results. Some types allow/require learning to be "supervised" by the operator, while others operate independently. Some types operate purely in hardware, while others are purely software and run on general purpose computers.
+
+Some of the main breakthroughs include:
+
+Convolutional neural networks (CNN) that have proven particularly successful in processing visual and other two-dimensional data;[165][166] where long short-term memory avoids the vanishing gradient problem[167] and can handle signals that have a mix of low and high frequency components aiding large-vocabulary speech recognition,[168][169] text-to-speech synthesis,[170][171][172] and photo-real talking heads.[173] Convolutional Neural Networks have also been applied to fraud detection[174][175].
+Competitive networks such as generative adversarial networks in which multiple networks (of varying structure) compete with each other, on tasks such as winning a game[176] or on deceiving the opponent about the authenticity of an input.[96]
+Network design
+Using artificial neural networks requires an understanding of their characteristics.
+
+Choice of model: This depends on the data representation and the application. Model parameters include the number, type, and connectedness of network layers, as well as the size of each and the connection type (full, pooling, etc.). Overly complex models learn slowly.
+Learning algorithm: Numerous trade-offs exist between learning algorithms. Almost any algorithm will work well with the correct hyperparameters[177] for training on a particular data set. However, selecting and tuning an algorithm for training on unseen data requires significant experimentation.
+Robustness: If the model, cost function and learning algorithm are selected appropriately, the resulting ANN can become robust.
+Neural architecture search (NAS) uses machine learning to automate ANN design. Various approaches to NAS have designed networks that compare well with hand-designed systems. The basic search algorithm is to propose a candidate model, evaluate it against a dataset, and use the results as feedback to teach the NAS network.[178] Available systems include AutoML and AutoKeras.[179] scikit-learn library provides functions to help with building a deep network from scratch. We can then implement a deep network with TensorFlow or Keras.
+
+Hyperparameters must also be defined as part of the design (they are not learned), governing matters such as how many neurons are in each layer, learning rate, step, stride, depth, receptive field and padding (for CNNs), etc.[180] The Python code snippet provides an overview of the training function, which uses the training dataset, number of hidden layer units, learning rate, and number of iterations as parameters:[citation needed]
+
+def train(X, y, n_hidden, learning_rate, n_iter):
+    """Training function.
+
+    Args:
+      X: Argument X.
+      y: Argument y.
+      n_hidden: The number of hidden layer units.
+      learning_rate: The learning rate.
+      n_iter: The number of iterations.
+
+    Returns:
+      dict: A dictionary.
+    """
+    m, n_input = X.shape
+
+    # 1. random initialize weights and biases
+    w1 = np.random.randn(n_input, n_hidden)
+    b1 = np.zeros((1, n_hidden))
+    w2 = np.random.randn(n_hidden, 1)
+    b2 = np.zeros((1, 1))
+
+    # 2. in each iteration, feed all layers with the latest weights and biases
+    for i in range(n_iter + 1):
+        z2 = np.dot(X, w1) + b1
+        a2 = sigmoid(z2)
+        z3 = np.dot(a2, w2) + b2
+        a3 = z3
+        dz3 = a3 - y
+        dw2 = np.dot(a2.T, dz3)
+        db2 = np.sum(dz3, axis=0, keepdims=True)
+        dz2 = np.dot(dz3, w2.T) * sigmoid_derivative(z2)
+        dw1 = np.dot(X.Y, dz2)
+        db1 = np.sum(dz2, axis=0)
+
+        # 3. update weights and biases with gradients
+        w1 -= learning_rate * dw1 / m
+        w2 -= learning_rate * dw2 / m
+        b1 -= learning_rate * db1 / m
+        b2 -= learning_rate * db2 / m
+
+        if i % 1000 == 0:
+            print("Epoch", i, "loss: ", np.mean(np.square(dz3)))
+
+    model = {"w1": w1, "b1": b1, "w2": w2, "b2": b2}
+    return model
+Theoretical properties
+Computational power
+The multilayer perceptron is a universal function approximator, as proven by the universal approximation theorem. However, the proof is not constructive regarding the number of neurons required, the network topology, the weights and the learning parameters.
+
+A specific recurrent architecture with rational-valued weights (as opposed to full precision real number-valued weights) has the power of a universal Turing machine,[181] using a finite number of neurons and standard linear connections. Further, the use of irrational values for weights results in a machine with super-Turing power.[182][183][failed verification]
+
+Capacity
+A model's "capacity" property corresponds to its ability to model any given function. It is related to the amount of information that can be stored in the network and to the notion of complexity. Two notions of capacity are known by the community. The information capacity and the VC Dimension. The information capacity of a perceptron is intensively discussed in Sir David MacKay's book[184] which summarizes work by Thomas Cover.[185] The capacity of a network of standard neurons (not convolutional) can be derived by four rules[186] that derive from understanding a neuron as an electrical element. The information capacity captures the functions modelable by the network given any data as input. The second notion, is the VC dimension. VC Dimension uses the principles of measure theory and finds the maximum capacity under the best possible circumstances. This is, given input data in a specific form. As noted in,[184] the VC Dimension for arbitrary inputs is half the information capacity of a perceptron. The VC Dimension for arbitrary points is sometimes referred to as Memory Capacity.[187]
+
+Convergence
+Models may not consistently converge on a single solution, firstly because local minima may exist, depending on the cost function and the model. Secondly, the optimization method used might not guarantee to converge when it begins far from any local minimum. Thirdly, for sufficiently large data or parameters, some methods become impractical.
+
+Another issue worthy to mention is that training may cross some saddle point which may lead the convergence to the wrong direction.
+
+The convergence behavior of certain types of ANN architectures are more understood than others. When the width of network approaches to infinity, the ANN is well described by its first order Taylor expansion throughout training, and so inherits the convergence behavior of affine models.[188][189] Another example is when parameters are small, it is observed that ANNs often fit target functions from low to high frequencies. This behavior is referred to as the spectral bias, or frequency principle, of neural networks.[190][191][192][193] This phenomenon is the opposite to the behavior of some well studied iterative numerical schemes such as Jacobi method. Deeper neural networks have been observed to be more biased towards low frequency functions.[194]
+
+Generalization and statistics
+
+This section includes a list of references, related reading, or external links, but its sources remain unclear because it lacks inline citations. Please help improve this section by introducing more precise citations. (August 2019) (Learn how and when to remove this message)
+Applications whose goal is to create a system that generalizes well to unseen examples, face the possibility of over-training. This arises in convoluted or over-specified systems when the network capacity significantly exceeds the needed free parameters.
+
+Two approaches address over-training. The first is to use cross-validation and similar techniques to check for the presence of over-training and to select hyperparameters to minimize the generalization error. The second is to use some form of regularization. This concept emerges in a probabilistic (Bayesian) framework, where regularization can be performed by selecting a larger prior probability over simpler models; but also in statistical learning theory, where the goal is to minimize over two quantities: the 'empirical risk' and the 'structural risk', which roughly corresponds to the error over the training set and the predicted error in unseen data due to overfitting.
+
+
+Confidence analysis of a neural network
+Supervised neural networks that use a mean squared error (MSE) cost function can use formal statistical methods to determine the confidence of the trained model. The MSE on a validation set can be used as an estimate for variance. This value can then be used to calculate the confidence interval of network output, assuming a normal distribution. A confidence analysis made this way is statistically valid as long as the output probability distribution stays the same and the network is not modified.
+
+By assigning a softmax activation function, a generalization of the logistic function, on the output layer of the neural network (or a softmax component in a component-based network) for categorical target variables, the outputs can be interpreted as posterior probabilities. This is useful in classification as it gives a certainty measure on classifications.
+
+The softmax activation function is:
+
+y
+i
+=
+e
+x
+i
+∑
+j
+=
+1
+c
+e
+x
+j
+{\displaystyle y_{i}={\frac {e^{x_{i}}}{\sum _{j=1}^{c}e^{x_{j}}}}}
+
+
+Applications
+Artificial neural networks (ANNs) have undergone significant advancements, particularly in their ability to model complex systems, handle large data sets, and adapt to various types of applications. Their evolution over the past few decades has been marked by a broad range of applications in fields such as image processing, speech recognition, natural language processing, finance, and medicine.[195] Artificial neural networks now form the core of many artificial intelligence systems, including natural language processing, computer vision, speech recognition, and autonomous systems.[196]
+
+Because of their ability to model and reproduce nonlinear processes, artificial neural networks have found applications in many disciplines. These include:
+
+Function approximation,[197] or regression analysis,[198] (including time series prediction, fitness approximation,[199] and modeling)
+Data processing[200] (including filtering, clustering, blind source separation,[201] and compression)
+Nonlinear system identification[95] and control (including vehicle control, trajectory prediction,[202] adaptive control, process control, and natural resource management)
+Pattern recognition (including radar systems, face identification, signal classification,[203] novelty detection, 3D reconstruction,[204] object recognition, and sequential decision making[205])
+Sequence recognition (including gesture, speech, and handwritten and printed text recognition[206])
+Sensor data analysis[207] (including image analysis)
+Robotics (including directing manipulators and prostheses)
+Data mining (including knowledge discovery in databases)
+Finance[208] (such as ex-ante models for specific financial long-run forecasts and artificial financial markets)
+Quantum chemistry[209]
+General game playing[210]
+Generative AI[211]
+Data visualization
+Machine translation
+Social network filtering[212]
+E-mail spam filtering
+Medical diagnosis[213]
+ANNs have been used to diagnose several types of cancers[214][215] and to distinguish highly invasive cancer cell lines from less invasive lines using only cell shape information.[216][217]
+
+ANNs have been used to accelerate reliability analysis of infrastructures subject to natural disasters[218][219] and to predict foundation settlements.[220] It can also be useful to mitigate flood by the use of ANNs for modelling rainfall-runoff.[221] ANNs have also been used for building black-box models in geoscience: hydrology,[222][223] ocean modelling and coastal engineering,[224][225] and geomorphology.[226] ANNs have been employed in cybersecurity, with the objective to discriminate between legitimate activities and malicious ones. For example, machine learning has been used for classifying Android malware,[227] for identifying domains belonging to threat actors and for detecting URLs posing a security risk.[228] Research is underway on ANN systems designed for penetration testing, for detecting botnets,[229] credit cards frauds[230] and network intrusions.
+
+ANNs have been proposed as a tool to solve partial differential equations in physics[231][232][233] and simulate the properties of many-body open quantum systems.[234][235][236][237] In brain research ANNs have studied short-term behavior of individual neurons,[238] the dynamics of neural circuitry arise from interactions between individual neurons and how behavior can arise from abstract neural modules that represent complete subsystems. Studies considered long-and short-term plasticity of neural systems and their relation to learning and memory from the individual neuron to the system level.
+
+It is possible to create a profile of a user's interests from pictures, using artificial neural networks trained for object recognition.[239]
+
+Beyond their traditional applications, artificial neural networks are increasingly being utilized in interdisciplinary research, such as materials science. For instance, graph neural networks (GNNs) have demonstrated their capability in scaling deep learning for the discovery of new stable materials by efficiently predicting the total energy of crystals. This application underscores the adaptability and potential of ANNs in tackling complex problems beyond the realms of predictive modeling and artificial intelligence, opening new pathways for scientific discovery and innovation.[240]
+
+Image processing
+In the realm of image processing, ANNs are employed in computer vision tasks such as image classification, object recognition, and image segmentation. For instance, deep convolutional neural networks (CNNs) have been important in handwritten digit recognition, achieving state-of-the-art performance.[195] This demonstrates the ability of ANNs to effectively process and interpret complex visual information, leading to advancements in fields ranging from automated surveillance to medical imaging.[195]
+
+Speech recognition
+By modeling speech signals, ANNs are used for tasks like speaker identification and speech-to-text conversion. Deep neural network architectures have introduced significant improvements in large vocabulary continuous speech recognition, outperforming traditional techniques.[195][241] These advancements have enabled the development of more accurate and efficient voice-activated systems, enhancing user interfaces in technology products.[242][243]
+
+Natural language processing
+In natural language processing, ANNs are used for tasks such as text classification, sentiment analysis, and machine translation. They have enabled the development of models that can accurately translate between languages, understand the context and sentiment in textual data, and categorize text based on content.[195][241] This has implications for automated customer service, content moderation, and language understanding technologies.[244][vague]
+
+Control systems
+In the domain of control systems, ANNs are used to model dynamic systems for tasks such as system identification, control design, and optimization. For instance, deep feedforward neural networks are important in system identification and control applications.[245][vague]
+
+Finance
+Further information: Applications of artificial intelligence § Trading and investment
+ANNs are used for stock market prediction and credit scoring:
+
+In investing, ANNs can process vast amounts of financial data, recognize complex patterns, and forecast stock market trends, aiding investors and risk managers in making informed decisions.[195]
+In credit scoring, ANNs offer data-driven, personalized assessments of creditworthiness, improving the accuracy of default predictions and automating the lending process.[241][better source needed]
+ANNs require high-quality data and careful tuning, and their "black-box" nature can pose challenges in interpretation.[246] Nevertheless, ANNs continue to play a role in finance, offering insights and enhancing risk management strategies.[246][247][248]
+
+Medicine
+ANNs are able to process and analyze vast medical datasets. They enhance diagnostic accuracy, especially by interpreting complex medical imaging for early disease detection, and by predicting patient outcomes for personalized treatment planning.[241] In drug discovery, ANNs speed up the identification of potential drug candidates and predict their efficacy and safety, significantly reducing development time and costs.[195] Additionally, their application in personalized medicine and healthcare data analysis allows tailored therapies and efficient patient care management.[241] Ongoing research is aimed at addressing remaining challenges such as data privacy and model interpretability, as well as expanding the scope of ANN applications in medicine.[249]
+
+Cybersecurity
+Neural networks are widely applied in cybersecurity for tasks such as anomaly detection, malware classification, and intrusion detection. By learning patterns of normal system or network behavior, neural models can identify deviations that may indicate malicious activity.[250]
+
+Content creation
+ANNs such as generative adversarial networks and transformers are used for content creation across numerous industries.[251] Deep learning models are able to learn the style of an artist or musician from huge datasets and generate completely new artworks and music compositions. For instance, DALL-E is a deep neural network trained on 650 million pairs of images and texts across the internet that can create artworks based on text entered by the user.[252] In the field of music, transformers have been used to create original music for commercials and documentaries through companies such as AIVA and Jukedeck.[253] In the marketing industry, generative models have been used to create personalized advertisements for consumers.[251] Additionally, major film companies are partnering with technology companies to analyze the financial success of a film, such as the partnership between Warner Bros and technology company Cinelytic established in 2020.[254][importance?] Furthermore, neural networks have found uses in video game creation, where non-player characters can make decisions based on all the characters currently in the game.[255]
+
+Criticism
+Training
+A common criticism of neural networks, particularly in robotics, is that they require too many training samples for real-world operation.[256] Any learning machine needs sufficient representative examples in order to capture the underlying structure that allows it to generalize to new cases. Potential solutions include randomly shuffling training examples, by using a numerical optimization algorithm that does not take too large steps when changing the network connections following an example, grouping examples in so-called mini-batches and/or introducing a recursive least squares algorithm for CMAC.[163] Dean Pomerleau uses a neural network to train a robotic vehicle to drive on multiple types of roads (single lane, multi-lane, dirt, etc.), and a large amount of his research is devoted to extrapolating multiple training scenarios from a single training experience, and preserving past training diversity so that the system does not become overtrained (if, for example, it is presented with a series of right turns—it should not learn to always turn right).[257][needs copy edit]
+
+Theory
+A central claim[citation needed] of ANNs is that they embody new and powerful general principles for processing information. These principles are ill-defined. This allows simple statistical association (the basic function of artificial neural networks) to be described as learning or recognition. In 1997, Alexander Dewdney, a former Scientific American columnist, commented that as a result, artificial neural networks have a
+
+something-for-nothing quality, one that imparts a peculiar aura of laziness and a distinct lack of curiosity about just how good these computing systems are. No human hand (or mind) intervenes; solutions are found as if by magic; and no one, it seems, has learned anything.[258]
+One response to Dewdney is that neural networks have been successfully used to handle many complex and diverse tasks, ranging from autonomously flying aircraft[259] to detecting credit card fraud to mastering the game of Go.
+
+Technology writer Roger Bridgman commented:
+
+Neural networks, for instance, are in the dock not only because they have been hyped to high heaven, (what hasn't?) but also because you could create a successful net without understanding how it worked: the bunch of numbers that captures its behaviour would in all probability be "an opaque, unreadable table...valueless as a scientific resource".
+
+In spite of his emphatic declaration that science is not technology, Dewdney seems here to pillory neural nets as bad science when most of those devising them are just trying to be good engineers. An unreadable table that a useful machine could read would still be well worth having.[260]
+Although it is true that analyzing what has been learned by an artificial neural network is difficult, it is much easier to do so than to analyze what has been learned by a biological neural network. Moreover, recent emphasis on the explainability of AI has contributed towards the development of methods, notably those based on attention mechanisms, for visualizing and explaining learned neural networks and decomposing how circuits chain to reach a given goal[261]. Furthermore, researchers involved in exploring learning algorithms for neural networks are gradually uncovering generic principles that allow a learning machine to be successful. For example, Bengio and LeCun (2007) wrote an article regarding local vs non-local learning, as well as shallow vs deep architecture.[262]
+
+Biological brains use both shallow and deep circuits as reported by brain anatomy,[263] displaying a wide variety of invariance. Weng[264] argued that the brain self-wires largely according to signal statistics and therefore, a serial cascade cannot catch all major statistical dependencies.
+
+Hardware
+Large and effective neural networks require considerable computing resources.[265] While the brain has hardware tailored to the task of processing signals through a graph of neurons, simulating even a simplified neuron on von Neumann architecture may consume vast amounts of memory and storage. Furthermore, the designer often needs to transmit signals through many of these connections and their associated neurons – which require enormous CPU power and time.[citation needed]
+
+Some argue that the resurgence of neural networks in the twenty-first century is largely attributable to advances in hardware: from 1991 to 2015, computing power, especially as delivered by GPGPUs (on GPUs), has increased around a million-fold, making the standard backpropagation algorithm feasible for training networks that are several layers deeper than before.[49] The use of accelerators such as FPGAs and GPUs can reduce training times from months to days.[265][266]
+
+Neuromorphic engineering or a physical neural network addresses the hardware difficulty directly, by constructing non-von-Neumann chips to directly implement neural networks in circuitry. Another type of chip optimized for neural network processing is called a Tensor Processing Unit, or TPU.[267]
+
+Concept drift
+When neural networks are deployed in real-world applications, the statistical properties of the input data may change over time, a phenomenon known as concept drift or non-stationarity. Drift can reduce predictive accuracy and lead to unreliable or biased decisions if it is not detected and corrected. In practice, this means that the model's accuracy in deployment may differ substantially from the levels observed during training or cross-validation.
+
+Several strategies have been developed to monitor neural networks for drift and degradation:
+
+Error-based monitoring: comparing current predictions against ground-truth labels when they become available. This approach directly quantifies predictive performance but may be impractical when labels are delayed or costly to obtain.
+Data distribution monitoring: detecting changes in the input data distribution using statistical tests, divergence measures, or density-ratio estimation.
+Representation monitoring: tracking the distribution of internal embeddings or hidden-layer features. Shifts in the latent representation can indicate nonstationarity even when labels are unavailable. Statistical methods such as statistical process control charts have been adapted for this purpose.[268]
+Dataset bias
+Neural networks are dependent on the quality of the data they are trained on, thus low quality data with imbalanced representativeness can lead to the model learning and perpetuating societal biases.[269][270] These inherited biases become especially critical when the ANNs are integrated into real-world scenarios where the training data may be imbalanced due to the scarcity of data for a specific race, gender or other attribute.[269] This imbalance can result in the model having inadequate representation and understanding of underrepresented groups, leading to discriminatory outcomes that exacerbate societal inequalities, especially in applications like facial recognition, hiring processes, and law enforcement.[270][271] For example, in 2018, Amazon had to scrap a recruiting tool because the model favored men over women for jobs in software engineering due to the higher number of male workers in the field.[271] The program would penalize any resume with the word "woman" or the name of any women's college. However, the use of synthetic data can help reduce dataset bias and increase representation in datasets.[272]
+
+Lack of interpretability
+Many deep learning models operate as opaque "black box" systems, making it difficult to interpret their internal decision-making processes. Neural networks can also be vulnerable to adversarial examples, where small perturbations to input data can cause incorrect predictions.
+
+These concerns have led to increased research in explainable artificial intelligence (XAI), robust machine learning, and hybrid AI approaches that combine neural learning with symbolic reasoning.[citation needed] Advocates of hybrid models also say that such a mixture can better capture the mechanisms of the human mind.[273][274]
+
+Practical counterexamples
+Analyzing what has been learned by an ANN is much easier than analyzing what has been learned by a biological neural network. Furthermore, researchers involved in exploring learning algorithms for neural networks are gradually uncovering general principles that allow a learning machine to be successful – for example, local vs. non-local learning and shallow vs. deep architecture.[275]
