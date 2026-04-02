@@ -34,6 +34,6 @@ def answer_query(query, k=3):
 
 
 if __name__ == "__main__":
-    query = "How do RAG pipelines work?"
+    query = "What is machine learning?"
     answer = answer_query(query)
     print("\nAnswer:\n", answer)
